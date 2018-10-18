@@ -6,8 +6,11 @@ Indicar qué clases se necesitan, qué variables de instancia se necesitan en ca
 Clases:
 
 VagonPasajeros
+
 VagonCarga
+
 Locomotora
+
 Formacion
 
 Objeto:
@@ -17,25 +20,37 @@ Deposito
 Variables de instancia que se necesitan en cada clase:
 
 VagonPasajeros:
+
 pesoMax
+
 cantidadPasajeros
 
 VagonCarga:
+
 pesoMax
+
 peso
+
 cantidadPasajeros
 
 Locomotora:
+
 pesoMax
+
 peso
+
 velMax
 
 Formacion:
+
 vagones
+
 locomotoras
 
 Deposito:
+
 formaciones
+
 locomotorasLibres
 
 Metodos:
@@ -43,39 +58,59 @@ Metodos:
 VagonPasajeros:
 
 cantidadPasajeros()
+
 esLiviano()
+
 pesoMax()
 
 VagonCarga:
 
 esLiviano()
+
 pesoMax()
+
 cantidadPasajeros()
 
 Locomotora:
 
 arrastreUtil()
+
 esEficiente()
 
 Formacion:
 
 agregarLocomotora()
+
 agregarLocomotoras()
+
 agregarVagon()
+
 pasajerosPuedenViajar()
+
 cantVagonesLivianos()
+
 velMaxF()
+
 locomotorasSonEficientes()
+
 puedeMoverse()
+
 cuantosKgsEmpujeFaltan()
+
 vagonMasPesadoFormacion()
+
 esCompleja()
 
 Deposito:
+
 agregarFormacion()
+
 agregarLocomotoraLibre()
+
 vagonesMasPesados()
+
 necesitaConductorExperimentado()
+
 puntoOcho()
 
 
