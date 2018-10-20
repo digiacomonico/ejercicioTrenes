@@ -106,11 +106,9 @@ class Formacion {
 	method velMaxF() {
 		var locomotorasByVelocidad = locomotoras.sortedBy({ locomotoraA , locomotoraB => locomotoraA.velMax() < locomotoraB.velMax() })
 		return locomotorasByVelocidad.first().velMax()
-	
 	/** Funciona pero te complicaste:
 	 *  return locomotoras.min({locomotora => locomotora.velMax()}).velMax()
 	 */
-
 	}
 
 	method locomotorasSonEficientes() {
@@ -130,11 +128,9 @@ class Formacion {
 	}
 
 	method vagonMasPesadoFormacion() {
-	
 		/**
 		 * Lo mismo que en el método VelMaxF()
 		 */
-	
 		var vagonesPorPeso = vagones.sortedBy({ vagonA , vagonB => vagonA.pesoMax() > vagonB.pesoMax() })
 		return vagonesPorPeso.first()
 	}
@@ -182,27 +178,28 @@ object deposito {
 		}
 	}
 
-/***  Posible solución, no la probé hay que testearla!! ***/
+	/***  Posibles soluciónes, no las probé hay que testearlas!! ***/
 	/**
 	 *  El punto ocho habla de una formacion determinada, 
 	 *  puede ser una formación que pasamos por parámetro o alguna que ya tengamos en el depósito, es a gusto del consumidor
+	 *  Hay varias formas de resolverlo
 	 */
 	// Forma complicada
-	method potenciar() {
+	method potenciarFormacion() {
 		var formNoSeMueven = self.getFormacionesQueNoPuedenMoverse()
 		if (!formNoSeMueven.isEmpty()) {
 			var formacion = formNoSeMueven.anyOne() // Lo hice así para mostrar algo distinto, pero tranquilamente la formación se la podríamos pasar por parámetro
-			var locomotora = self.locomotoraConArrastreIgualOMayor(formacion.cuantosKgsEmpujeFaltan())
-			if (locomotora) { // Si Hay una locomotora con el arrastre necesario la agrego sino no hago nada.
+			if (self.locomotoraConArrastreIgualOMayor(formacion.cuantosKgsEmpujeFaltan())) { // Si Hay una locomotora con el arrastre necesario la agrego sino no hago nada.
+				var locomotora = self.locomotoraConArrastreIgualOMayor(formacion.cuantosKgsEmpujeFaltan()).anyOne()
 				formacion.agregarLocomotora(locomotora)
 			}
 		}
 	}
 
-	// Forma no tan complicada
+	// Forma copada
 	method potenciar(formacion) {
-		var locomotora = self.locomotoraConArrastreIgualOMayor(formacion.cuantosKgsEmpujeFaltan())
-		if (!formacion.puedeMoverse() && locomotora) {
+		if (self.locomotoraConArrastreIgualOMayor(formacion.cuantosKgsEmpujeFaltan()) && !formacion.puedeMoverse()) {
+			var locomotora = self.locomotoraConArrastreIgualOMayor(formacion.cuantosKgsEmpujeFaltan()).anyOne()
 			formacion.agregarLocomotora(locomotora)
 		}
 	}
@@ -212,7 +209,7 @@ object deposito {
 	}
 
 	method locomotoraConArrastreIgualOMayor(valor) {
-		return locomotorasLibres.findOrDefault({ locomotora => locomotora.arrastreUtil() >= valor }, false) // Si no encuentra nada devuelve false
+		return locomotorasLibres.any({ locomotora => locomotora.arrastreUtil() >= valor })
 	}
 
 }
