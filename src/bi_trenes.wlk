@@ -1,5 +1,6 @@
 /**
  * 	Está muy bien, ver abajo algunos comentarios
+ *  Comentario de prueba
  */
 
 class VagonPasajeros {
