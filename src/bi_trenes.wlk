@@ -1,8 +1,3 @@
-/**
- * 	Está muy bien, ver abajo algunos comentarios
- *  Comentario de prueba
- */
-
 class VagonPasajeros {
 
 	var property pesoMax
@@ -16,15 +11,6 @@ class VagonPasajeros {
 			cantidadPasajeros = largo * 10
 			return cantidadPasajeros
 		}
-	/**
-	 * Está bien, también se puede resolver de la siguiente manera:
-	 * method cantidadPasajeros(ancho, largo){
-	 * 	if(ancho <= 2.5){
-	 * 		return largo * 8
-	 * 	}
-	 * 	return largo * 10
-	 * }
-	 */
 	}
 
 	method esLiviano() {
@@ -69,10 +55,7 @@ class Locomotora {
 		return pesoMax - peso
 	}
 
-	// Si una formación es eficiente; es eficiente si cada una de sus 
-	// locomotoras arrastra, al menos, 5 veces su peso 
-	// (el de la locomotora misma).
-	// Usar lista[].all para ver si son todas eficientes
+
 	method esEficiente() {
 		return self.arrastreUtil() >= (peso * 5)
 	}
@@ -107,9 +90,6 @@ class Formacion {
 	method velMaxF() {
 		var locomotorasByVelocidad = locomotoras.sortedBy({ locomotoraA , locomotoraB => locomotoraA.velMax() < locomotoraB.velMax() })
 		return locomotorasByVelocidad.first().velMax()
-	/** Funciona pero te complicaste:
-	 *  return locomotoras.min({locomotora => locomotora.velMax()}).velMax()
-	 */
 	}
 
 	method locomotorasSonEficientes() {
@@ -129,9 +109,6 @@ class Formacion {
 	}
 
 	method vagonMasPesadoFormacion() {
-		/**
-		 * Lo mismo que en el método VelMaxF()
-		 */
 		var vagonesPorPeso = vagones.sortedBy({ vagonA , vagonB => vagonA.pesoMax() > vagonB.pesoMax() })
 		return vagonesPorPeso.first()
 	}
@@ -167,40 +144,10 @@ object deposito {
 		return formaciones.any({ formacion => formacion.esCompleja() })
 	}
 
-	method puntoOcho(locomotoraLibre) {
-		if (!(formaciones.any({ formacion => formacion.puedeMoverse()}))) {
-			if (formaciones.sum({ formacion => formacion.cuantosKgsEmpujeFaltan() }) <= locomotoraLibre.arrastreUtil()) {
-				formacion.agregarLocomotora(locomotoraLibre)
-					// formaciones.add({formacion => formacion.agregarLocomotora(locomotoraLibre)})
-				locomotorasLibres.remove(locomotoraLibre)
-			} else {
-			}
-		} else {
-		}
-	}
 
-	/***  Posibles soluciónes, no las probé hay que testearlas!! ***/
-	/**
-	 *  El punto ocho habla de una formacion determinada, 
-	 *  puede ser una formación que pasamos por parámetro o alguna que ya tengamos en el depósito, es a gusto del consumidor
-	 *  Hay varias formas de resolverlo
-	 */
-	// Forma complicada
-	method potenciarFormacion() {
-		var formNoSeMueven = self.getFormacionesQueNoPuedenMoverse()
-		if (!formNoSeMueven.isEmpty()) {
-			var formacion = formNoSeMueven.anyOne() // Lo hice así para mostrar algo distinto, pero tranquilamente la formación se la podríamos pasar por parámetro
-			if (self.locomotoraConArrastreIgualOMayor(formacion.cuantosKgsEmpujeFaltan())) { // Si Hay una locomotora con el arrastre necesario la agrego sino no hago nada.
-				var locomotora = self.locomotoraConArrastreIgualOMayor(formacion.cuantosKgsEmpujeFaltan()).anyOne()
-				formacion.agregarLocomotora(locomotora)
-			}
-		}
-	}
-
-	// Forma copada
 	method potenciar(formacion) {
-		if (self.locomotoraConArrastreIgualOMayor(formacion.cuantosKgsEmpujeFaltan()) && !formacion.puedeMoverse()) {
-			var locomotora = self.locomotoraConArrastreIgualOMayor(formacion.cuantosKgsEmpujeFaltan()).anyOne()
+		if (self.haylocomotorasConArrastreIgualOMayor(formacion.cuantosKgsEmpujeFaltan()) && !formacion.puedeMoverse()) {
+			var locomotora = self.locomotoraLibreHabilitada(formacion.cuantosKgsEmpujeFaltan())
 			formacion.agregarLocomotora(locomotora)
 		}
 	}
@@ -209,9 +156,14 @@ object deposito {
 		return formaciones.filter({ formacion => !formacion.puedeMoverse() })
 	}
 
-	method locomotoraConArrastreIgualOMayor(valor) {
+	method haylocomotorasConArrastreIgualOMayor(valor) {
 		return locomotorasLibres.any({ locomotora => locomotora.arrastreUtil() >= valor })
-	}
+}
 
+
+	method locomotoraLibreHabilitada(valor){
+		return locomotorasLibres.filter({locomotora => locomotora.arrastreUtil() >= valor}).first()
+		
+	}
 }
 
