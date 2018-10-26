@@ -114,11 +114,16 @@ class Formacion {
 	}
 
 	method esCompleja() {
-		/**
-		 *  Se puede llevar a otros método para que no quede tan largo y sea dificil de leer
-		 *  return tamanioTotal() > 20 || pesoTota() > 10000
-		 */
-		return vagones.size() + locomotoras.size() > 20 || vagones.sum({ vagon => vagon.pesoMax() }) + locomotoras.sum({ locomotora => locomotora.peso() }) > 10000
+		return self.tamanioTotal() > 20 || self.pesoTotal() > 10000
+	}
+
+
+	method tamanioTotal(){
+		return vagones.size() + locomotoras.size()
+	}
+
+	method pesoTotal(){
+		return vagones.sum({ vagon => vagon.pesoMax() }) + locomotoras.sum({ locomotora => locomotora.peso() })
 	}
 
 }
