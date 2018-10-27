@@ -352,3 +352,130 @@ test "formacion no puede moverse, agrega locomotora del deposito y puede moverse
 	deposito.potenciar(formacionA)
 	assert.equals(0,formacionA.cuantosKgsEmpujeFaltan())
 }
+
+
+test "formacion de corta distancia no puede moverse y es compleja, no esta bien armada"{
+	var vagonA = new VagonPasajeros()
+	var vagonB = new VagonPasajeros()
+	var locomotoraA = new Locomotora()
+	locomotoraA.peso(1000)
+	locomotoraA.pesoMax(5390)
+	vagonA.cantidadPasajeros(50,50)
+	vagonB.cantidadPasajeros(100,100)
+	var formacionCortaA = new FormacionCortaDistancia()
+	formacionCortaA.agregarVagon(vagonA)
+	formacionCortaA.agregarVagon(vagonB)
+	formacionCortaA.agregarLocomotora(locomotoraA)
+	assert.equals(false,formacionCortaA.bienArmada())
+}
+
+test "formacion de corta distancia puede moverse pero es compleja, no esta bien armada"{
+	var vagonA = new VagonPasajeros()
+	var vagonB = new VagonPasajeros()
+	var locomotoraA = new Locomotora()
+	locomotoraA.peso(1000)
+	locomotoraA.pesoMax(150000)
+	vagonA.cantidadPasajeros(50,50)
+	vagonB.cantidadPasajeros(100,100)
+	var formacionCortaA = new FormacionCortaDistancia()
+	formacionCortaA.agregarVagon(vagonA)
+	formacionCortaA.agregarVagon(vagonB)
+	formacionCortaA.agregarLocomotora(locomotoraA)
+	assert.equals(false,formacionCortaA.bienArmada())
+}
+
+test "formacion de corta distancia no es compleja pero no puede moverse, no esta bien armada"{
+	var vagonA = new VagonPasajeros()
+	var vagonB = new VagonPasajeros()
+	var locomotoraA = new Locomotora()
+	locomotoraA.peso(11000)
+	locomotoraA.pesoMax(150000)
+	vagonA.cantidadPasajeros(1,1)
+	vagonB.cantidadPasajeros(1,1)
+	var formacionCortaA = new FormacionCortaDistancia()
+	formacionCortaA.agregarVagon(vagonA)
+	formacionCortaA.agregarVagon(vagonB)
+	formacionCortaA.agregarLocomotora(locomotoraA)
+	assert.equals(false,formacionCortaA.bienArmada())
+}
+
+test "formacion de corta distancia no es compleja y puede moverse, esta bien armada"{
+	var vagonA = new VagonPasajeros()
+	var vagonB = new VagonPasajeros()
+	var locomotoraA = new Locomotora()
+	locomotoraA.peso(1000)
+	locomotoraA.pesoMax(150000)
+	vagonA.cantidadPasajeros(1,1)
+	vagonB.cantidadPasajeros(1,1)
+	var formacionCortaA = new FormacionCortaDistancia()
+	formacionCortaA.agregarVagon(vagonA)
+	formacionCortaA.agregarVagon(vagonB)
+	formacionCortaA.agregarLocomotora(locomotoraA)
+	assert.equals(true,formacionCortaA.bienArmada())
+}
+
+test "formacion de larga distancia no puede moverse, no esta bien armada"{
+	var vagonA = new VagonPasajeros()
+	var vagonB = new VagonPasajeros()
+	var locomotoraA = new Locomotora()
+	locomotoraA.peso(1000)
+	locomotoraA.pesoMax(5390)
+	vagonA.cantidadPasajeros(50,50)
+	vagonB.cantidadPasajeros(100,100)
+	var formacionLargaA = new FormacionLargaDistancia()
+	formacionLargaA.agregarVagon(vagonA)
+	formacionLargaA.agregarVagon(vagonB)
+	formacionLargaA.agregarLocomotora(locomotoraA)
+	assert.equals(false,formacionLargaA.bienArmada())
+}
+
+test "formacion de larga distancia puede moverse pero no tiene un banio cada 50 pasajeros, no esta bien armada"{
+	var vagonA = new VagonPasajeros()
+	var vagonB = new VagonPasajeros()
+	var locomotoraA = new Locomotora()
+	locomotoraA.peso(1000)
+	locomotoraA.pesoMax(150000)
+	vagonA.cantidadBanios(0)
+	vagonB.cantidadBanios(1)
+	vagonA.cantidadPasajeros(50,50)
+	vagonB.cantidadPasajeros(100,100)
+	var formacionLargaA = new FormacionLargaDistancia()
+	formacionLargaA.agregarVagon(vagonA)
+	formacionLargaA.agregarVagon(vagonB)
+	formacionLargaA.agregarLocomotora(locomotoraA)
+	assert.equals(false,formacionLargaA.bienArmada())
+}
+
+test "formacion de larga distancia tiene un banio cada 50 pasajeros, pero no puede moverse, no esta bien armada"{
+	var vagonA = new VagonPasajeros()
+	var vagonB = new VagonPasajeros()
+	var locomotoraA = new Locomotora()
+	locomotoraA.peso(1000)
+	locomotoraA.pesoMax(5390)
+	vagonA.cantidadBanios(2000)
+	vagonB.cantidadBanios(2000)
+	vagonA.cantidadPasajeros(50,50)
+	vagonB.cantidadPasajeros(100,100)
+	var formacionLargaA = new FormacionLargaDistancia()
+	formacionLargaA.agregarVagon(vagonA)
+	formacionLargaA.agregarVagon(vagonB)
+	formacionLargaA.agregarLocomotora(locomotoraA)
+	assert.equals(false,formacionLargaA.bienArmada())
+}
+
+test "formacion de laraga distancia tiene un banio cada 50 pasajeros y puede moverse, esta bien armada"{
+	var vagonA = new VagonPasajeros()
+	var vagonB = new VagonPasajeros()
+	var locomotoraA = new Locomotora()
+	locomotoraA.peso(1000)
+	locomotoraA.pesoMax(150000)
+	vagonA.cantidadBanios(15)
+	vagonB.cantidadBanios(15)
+	vagonA.cantidadPasajeros(50,50)
+	vagonB.cantidadPasajeros(100,100)
+	var formacionLargaA = new FormacionLargaDistancia()
+	formacionLargaA.agregarVagon(vagonA)
+	formacionLargaA.agregarVagon(vagonB)
+	formacionLargaA.agregarLocomotora(locomotoraA)
+	assert.equals(true,formacionLargaA.bienArmada())
+}

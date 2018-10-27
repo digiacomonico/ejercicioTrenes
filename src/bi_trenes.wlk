@@ -2,6 +2,7 @@ class VagonPasajeros {
 
 	var property pesoMax
 	var property cantidadPasajeros
+	var property cantidadBanios = 0
 
 	method cantidadPasajeros(ancho, largo) {
 		if (ancho <= 2.5) {
@@ -22,6 +23,7 @@ class VagonPasajeros {
 		return pesoMax
 	}
 
+
 }
 
 class VagonCarga {
@@ -29,6 +31,7 @@ class VagonCarga {
 	var property peso
 	var property pesoMax
 	const cantidadPasajeros = 0
+	const cantidadBanios = 0
 
 	method pesoMax() {
 		pesoMax = peso + (80 * 2)
@@ -79,6 +82,11 @@ class Formacion {
 		vagones.add(vagon)
 	}
 
+	method bienArmada(){
+		return self.puedeMoverse()
+	}
+
+
 	method pasajerosPuedenViajar() {
 		return vagones.sum({ vagon => vagon.cantidadPasajeros() })
 	}
@@ -126,6 +134,37 @@ class Formacion {
 		return vagones.sum({ vagon => vagon.pesoMax() }) + locomotoras.sum({ locomotora => locomotora.peso() })
 	}
 
+}
+
+class FormacionLargaDistancia inherits Formacion{
+
+	override method bienArmada(){
+		
+	if(self.puedeMoverse()){
+		return vagones.sum({ vagon => vagon.cantidadBanios()}) >= vagones.sum({vagon => vagon.cantidadPasajeros()}) / 50
+	}
+	else{
+		return self.puedeMoverse()
+	}
+
+	}
+	
+}
+
+class FormacionCortaDistancia inherits Formacion{
+
+	override method bienArmada(){
+
+	if (self.puedeMoverse()){
+		return !self.esCompleja()
+	}
+
+	else{
+		return self.puedeMoverse()
+	}
+
+	}
+	
 }
 
 object deposito {
