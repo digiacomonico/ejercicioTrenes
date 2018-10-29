@@ -138,6 +138,33 @@ class Formacion {
 }
 
 class FormacionLargaDistancia inherits Formacion{
+	
+	var ciudadesQueUne = []
+	var velocidadLimite
+	
+	method agregarCiudades(ciudad){
+		ciudadesQueUne.add(ciudad)
+	}
+	
+	method quitarCiudades(ciudad){
+		ciudadesQueUne.remove(ciudad)
+	}
+	
+	method cantidadCiudadesQueConecta(){
+		return ciudadesQueUne.size()
+		
+	}
+	
+	method velMaxFormacionLarga(){
+		if(self.cantidadCiudadesQueConecta() >= 2 ){
+			velMax = 200
+			return velMax
+		}
+		else {
+			velMax = 150
+			return velMax
+		}
+	}
 
 	override method bienArmada(){
 		
@@ -176,7 +203,6 @@ class FormacionCortaDistancia inherits Formacion{
 	else{
 		return self.puedeMoverse()
 	}
-
 	}
 	
 }
