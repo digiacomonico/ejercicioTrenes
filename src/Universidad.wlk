@@ -2,7 +2,7 @@ import Profesional.*
 
 class Universidad {
 	var property nombre
-	var honorariosRecomendados
+	var property honorariosRecomendados
 	var property ubicacionProvincia
 	var profesionales = []
 	var provinciasHabilitadasProfesional = #{}
@@ -31,5 +31,18 @@ class Universidad {
 		
 		else return provinciasHabilitadasProfesional
 	}
+
+	method honorarios(profesional){
+		if (profesional.tipoProfesional() == "Vinculado"){
+			honorariosRecomendados = self.honorariosRecomendados()
+			return honorariosRecomendados
+		}
+		else if (profesional.tipoProfesional() == "Litoral"){
+			honorariosRecomendados = 3000
+			return honorariosRecomendados
+		}
+		else return profesional.honorarios()
+	}
+
 
 }
