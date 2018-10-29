@@ -1,4 +1,14 @@
-import bi_trenes.*
+import VagonPasajeros.*
+import VagonCarga.*
+import Locomotora.*
+import Formacion.*
+import FormacionLargaDistancia.*
+import TrenAltaVelocidad.*
+import FormacionCortaDistancia.*
+import Deposito.*
+
+
+
 
 // Punto 0
 
