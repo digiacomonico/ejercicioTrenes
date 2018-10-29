@@ -69,6 +69,7 @@ class Formacion {
 
 	var vagones = []
 	var locomotoras = []
+	var velMax 
 
 	method agregarLocomotora(unaLocomotora) {
 		locomotoras.add(unaLocomotora)
@@ -152,6 +153,19 @@ class FormacionLargaDistancia inherits Formacion{
 }
 
 class FormacionCortaDistancia inherits Formacion{
+	
+	const velocidadLimite = 60
+	
+	method velMaxFormacionCorta(){
+		if(self.velMaxF() > velocidadLimite ){
+			velMax = velocidadLimite
+			return velMax
+		}
+		else {
+			velMax = self.velMaxF()
+			return velMax
+		}
+	}
 
 	override method bienArmada(){
 
