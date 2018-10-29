@@ -82,6 +82,10 @@ class Formacion {
 	method agregarVagon(vagon) {
 		vagones.add(vagon)
 	}
+	
+	method cantidadVagones(){
+		return vagones.size()
+	}
 
 	method bienArmada(){
 		return self.puedeMoverse()
@@ -140,7 +144,6 @@ class Formacion {
 class FormacionLargaDistancia inherits Formacion{
 	
 	var ciudadesQueUne = []
-	var velocidadLimite
 	
 	method agregarCiudades(ciudad){
 		ciudadesQueUne.add(ciudad)
@@ -178,6 +181,21 @@ class FormacionLargaDistancia inherits Formacion{
 	}
 	
 }
+
+class TrenAltaVelocidad inherits FormacionLargaDistancia {
+	
+	var property velocidad
+	
+	override method bienArmada(){
+		
+	if(self.velMaxF() >= 250 && self.cantidadVagones() == self.cantVagonesLivianos() ){
+		return true
+	}
+	return false	
+	}
+	
+}
+
 
 class FormacionCortaDistancia inherits Formacion{
 	
