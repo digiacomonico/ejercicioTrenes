@@ -1,0 +1,43 @@
+import Profesional.*
+import Universidad.*
+
+test "Profesional estudio en la UBA" {
+	
+	var profesionalA = new Profesional()
+	profesionalA.casaEstudios("UBA")
+	profesionalA.tipoProfesional("Vinculado")
+	assert.equals("UBA",profesionalA.casaEstudios())
+
+}
+
+test "Universidad UBA, profesional Vinculado, provincia habilitada, Buenos Aires" {
+	
+	var universidadUBA = new Universidad()
+	var profesionalA = new Profesional()
+	profesionalA.tipoProfesional("Vinculado")
+	universidadUBA.ubicacionProvincia("Buenos Aires")
+	assert.equals(#{"Buenos Aires"},universidadUBA.provinciasHabilitadas(profesionalA))
+
+}
+
+test "Universidad Litoral, profesional Litoral, provincias habilitadas, Corrientes, Entre Rios, Santa Fe" {
+	
+	var universidadLitoral = new Universidad()
+	var profesionalA = new Profesional()
+	profesionalA.tipoProfesional("Litoral")
+	universidadLitoral.ubicacionProvincia("Corrientes")
+	assert.equals(#{"Corrientes", "Entre Ríos", "Santa Fe"},universidadLitoral.provinciasHabilitadas(profesionalA))
+
+}
+
+test "Universidad X, profesional Libre, provincias habilitadas, Santa Cruz y Tierra del Fuego" {
+	
+	var universidadX = new Universidad()
+	var profesionalA = new Profesional()
+	profesionalA.tipoProfesional("Libre")
+	profesionalA.provHab(#{"Santa Cruz", "Tierra del Fuego"})
+	universidadX.ubicacionProvincia("Corrientes")
+	assert.equals(#{"Santa Cruz", "Tierra del Fuego"},profesionalA.provinciasHabilitadas())
+
+}
+
