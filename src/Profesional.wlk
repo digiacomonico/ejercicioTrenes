@@ -2,14 +2,9 @@ import Universidad.*
 
 class Profesional {
 	var property casaEstudios
-	var property honorariosPorHora
 	var property tipoProfesional
 	var provinciasHabilitadas = #{}
-	
-	method honorariosPorHora(){
-		
-		return honorariosPorHora
-	}
+	var property honorarios
 	
 	method provHab(provincias){
 		
@@ -27,10 +22,10 @@ class Profesional {
 	method honorarios(){
 	
 	if(self.tipoProfesional() == "Libre" ){
-		honorariosPorHora = self.honorariosPorHora()
-		return honorariosPorHora
+		honorarios = self.honorarios()
+		return honorarios
 	}
-	else return honorariosPorHora
+	else return honorarios
 	}
 	
 	}

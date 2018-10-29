@@ -6,6 +6,7 @@ class Universidad {
 	var property ubicacionProvincia
 	var profesionales = []
 	var provinciasHabilitadasProfesional = #{}
+	var property honorarios
 	
 	method agregarProfesional(profesional){
 		profesionales.add(profesional)
@@ -34,12 +35,12 @@ class Universidad {
 
 	method honorarios(profesional){
 		if (profesional.tipoProfesional() == "Vinculado"){
-			honorariosRecomendados = self.honorariosRecomendados()
-			return honorariosRecomendados
+			honorarios = self.honorariosRecomendados()
+			return honorarios
 		}
 		else if (profesional.tipoProfesional() == "Litoral"){
-			honorariosRecomendados = 3000
-			return honorariosRecomendados
+			honorarios = 3000
+			return honorarios
 		}
 		else return profesional.honorarios()
 	}
