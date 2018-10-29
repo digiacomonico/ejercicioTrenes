@@ -19,6 +19,10 @@ class EmpresaServicio{
 		profesionales.add(profesional)
 	}
 	
+	method agregarUniversidad(universidad){
+		universidades.add(universidad)
+	}
+	
 	method quitarProfesional(profesional){
 		profesionales.remove(profesional)
 	}
@@ -28,8 +32,9 @@ class EmpresaServicio{
 	}
 	
 	method profesionalesCaros(){
-		var honorariosProfesionales = profesionales.filter({profesional => profesional.honorarios() > self.honorarioReferencia() })
-		var honorariosUniversidades = universidades.filter({uni => uni.honorarios(profesional) > self.honorarioReferencia()})
-		return honorariosProfesionales.union(honorariosUniversidades)
+		return profesionales.filter({profesional => profesional.honorarios() > self.honorarioReferencia() })
+		//var honorariosUniversidades = universidades.filter({uni => uni.honorarios(profesional) > self.honorarioReferencia()})
+		
+		//.union(honorariosUniversidades)
 	}
 }

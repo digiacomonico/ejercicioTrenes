@@ -1,4 +1,5 @@
 import Universidad.*
+import EmpresaServicio.*
 
 class Profesional {
 	var property casaEstudios
@@ -19,13 +20,21 @@ class Profesional {
 		return provinciasHabilitadas
 	}
 	
-	method honorarios(){
+	method honorarios(universidad,profesional){
 	
 	if(self.tipoProfesional() == "Libre" ){
 		honorarios = self.honorarios()
 		return honorarios
 	}
+	else if (self.tipoProfesional() == "Vinculado"){
+		honorarios = universidad.honorarios(profesional)
+		return honorarios
+		
+	}
+	else if (self.tipoProfesional() == "Litoral"){
+		honorarios =  universidad.honorarios(profesional)
+		return honorarios
+	}
 	else return honorarios
 	}
-	
 	}

@@ -1,5 +1,6 @@
 import Profesional.*
 import Universidad.*
+import EmpresaServicio.*
 
 test "Profesional estudio en la UBA" {
 	
@@ -65,9 +66,49 @@ test "Universidad X, profesional Libre, honorarios 1000" {
 	
 	var profesionalA = new Profesional()
 	profesionalA.tipoProfesional("Litoral")
-	profesionalA.honorariosPorHora(1000)
+	profesionalA.honorarios(1000)
 	assert.equals(1000,profesionalA.honorarios())
 
 }
 
+test "Profesional A, B y C son caros" {
+
+var profesionalA = new Profesional()
+var profesionalB = new Profesional()
+var profesionalC = new Profesional()
+var profesionalD = new Profesional()
+var universidadUBA = new Universidad()
+var universidadLitoral = new Universidad()
+var universidadRosario = new Universidad()
+var empresaServicioA = new EmpresaServicio()
+
+profesionalA.tipoProfesional("Vinculado")
+universidadUBA.honorariosRecomendados(3500)
+universidadUBA.agregarProfesional(profesionalA)
+profesionalA.honorarios(universidadUBA,profesionalA)
+
+profesionalB.tipoProfesional("Litoral")
+profesionalB.honorarios(universidadLitoral,profesionalB)
+universidadLitoral.agregarProfesional(profesionalB)
+
+
+profesionalC.tipoProfesional("Vinculado")
+universidadRosario.honorariosRecomendados(2000)
+profesionalC.honorarios(universidadRosario,profesionalC)
+universidadRosario.agregarProfesional(profesionalC)
+
+
+profesionalD.tipoProfesional("Libre")
+profesionalD.honorarios(1000)
+
+empresaServicioA.honorarioReferencia(1500)
+
+empresaServicioA.agregarProfesionales(#{profesionalA,profesionalB,profesionalC,profesionalD})
+empresaServicioA.agregarUniversidad(universidadUBA)
+empresaServicioA.agregarUniversidad(universidadLitoral)
+empresaServicioA.agregarUniversidad(universidadRosario)
+
+assert.equals(#{profesionalA, profesionalB,profesionalC},empresaServicioA.profesionalesCaros())
+
+}
 
